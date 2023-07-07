@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+ 
+  <title>SSH Lab - MIST Task</title>
+  <link rel="icon" type="image/x-icon" href="ssh.ico">
+
+
+   <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            background-color: white;
+        }
+#header {
+    font-size: 20px;
+    text-align: center;
+}
+
+#header2 {
+            font-size: 30px;
+            text-align: center;
+        }
+
+  #subject-number-container {
+        font-size: 20px;
+        font-weight: bold;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    #subject-number {
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+
+#performance-title {
+    font-size: 30px; /* change the font-size here */
+    line-height: 30px;
+    text-align: center; /* add this line */
+    color: black; /* add this line */
+    background-color: transparent; /* add this line */
+}
+
+
+
+        #performance, #timer {
+            width: 0;
+            height: 40px;
+            transition: width 0.25s;
+        }
+        #performance {
+            background-color: green;
+        }
+#performance-bar-container {
+    display: none; 
+    width: 50%;
+    height: 40px;
+    border: 0px solid black;
+    background-color: black;
+    margin: 30px auto;
+    margin-bottom: 50px; /* adjust this to increase the space below the performance bar */
+    position: relative; /* add this line */
+}
+
+#performance, #performance-label {
+    position: absolute; /* add this line */
+    width: 100%; /* add this line */
+    height: 100%; /* add this line */
+}
+
+#performance-label {
+    text-align: center; /* add this line */
+    color: white; /* add this line */
+            font-size: 20px;
+            font-weight: bold;
+padding: 10px;
+    z-index: 1; /* add this line */
+}
+
+
+#timer-bar-container {
+    display: none; 
+    width: 50%;
+    height: 40px;
+    border: 0px solid black;
+    margin: 50px 50px 100px 50px    /* Top Right Bottom Left margins*/
+position: relative; 
+}
+
+#timer-label {
+    position: absolute; /* add this line */
+    width: 100%; /* add this line */
+    height: 100%; /* add this line */
+    font-size: 24px; /* change the font-size here */
+    line-height: 40px;
+    text-align: center; /* add this line */
+    color: black; /* add this line */
+    visibility: hidden; /* add this line */
+    background-color: transparent; /* add this line */
+}
+
+ 
+#timer {
+ position: absolute; /* add this line */
+    width: 0; /* add this line */
+    height: 100%; /* add this line */
+    margin: 25px 50px 75px 100px
+    background-color: aqua; /* add this line */
+}
+
+       #question {
+            font-size: 80px;
+            font-weight: bold;
+            margin-bottom: 50px;
+            margin-top:60px;
+
+        }
+
+
+
+
+
+	 #start {
+        font-size: 3em; /* Change this to adjust the font size of the button */
+        padding: 1em;   /* Change this to adjust the padding around the text inside the button */
+        cursor: pointer;
+	}
+       #buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 150px;
+        }
+
+
+
+.btn {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    border-radius: 65%;
+    background-color: blue;
+    color: white;
+    font-size: 50px;
+    line-height: 50px;
+    display: inline-block;
+    transition: background-color .25s;
+}
+
+.btn:active {
+    background-color: red;
+}
+
+
+
+
+        #results {
+            display: none;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="header">Stress, Sleep, and Health Lab<br /></h1>
+    <h2 id="header2">MIST TASK<br /><br /><br /></h2>
+
+   <!-- Subject Number Input -->
+   <div id="subject-number-container">
+
+        <input id="subject-number" type="text" placeholder="Subject Number" />
+    </div>
+    <div id="performance-title"></div>
+   <div id="performance-bar-container">
+    <div id="performance"></div>
+    <div id="performance-label">PERFORMANCE: 0%</div>
+</div>
+    <div id="timer-bar-container" style="width: 50%; margin-bottom: 20px; position: relative;">
+    <div id="timer"></div>
+    <div id="timer-label" style="position: absolute; width: 100%; text-align: center; color: black; line-height: 40px;">Time Remaining</div>
+</div>
+
+    </div>
+    <div id="question"></div>
+    <div id="buttons"></div>
+    <button id="start">Start</button>
+    <table id="results">
+        <thead>
+            <tr>
+                <th>Question Number</th>
+                <th>Question</th>
+                <th>Correct Answer</th>
+                <th>The Number Button Clicked</th>
+                <th>Result</th>
+                <th>Response Time (ms)</th>
+                <th>Allowed Time (s)</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <audio id="click-sound" src="click.mp3"></audio>
+
+
+<script>
+    const questions = ["0 - 0 ", "1 - 0 "];
+    const questionDiv = document.querySelector('#question');
+    const startButton = document.querySelector('#start');
+    const performanceBar = document.querySelector('#performance');
+    const performanceBarContainer = document.querySelector('#performance-bar-container');
+    const timerBar = document.querySelector('#timer');
+    const timerBarContainer = document.querySelector('#timer-bar-container');
+    const buttonsDiv = document.querySelector('#buttons');
+    const resultsTable = document.querySelector('#results tbody');
+    const clickSound = document.querySelector('#click-sound');
+    const timerLabel = document.querySelector('#timer-label');
+    const performanceTitle = document.querySelector('#performance-title');
+
+
+
+    const subjectNumberInput = document.querySelector('#subject-number');
+
+    let questionCount = 0;
+    let correctCount = 0;
+    let consecutiveCorrect = 0;
+    let consecutiveIncorrect = 0;
+    let currentQuestion;
+    let questionStart;
+    let questionTimeout;
+    let sessionTimeout;
+    let sessionRunning = false;
+
+
+    let questionTime = 5000; // initial question time
+
+    function start() {
+       timerLabel.style.visibility = 'visible';        
+
+//    performanceTitle.style.visibility = 'visible';
+performanceTitle.innerText = "Your Performance";
+
+timerBarContainer.style.display = 'block';
+       timerBar.style.backgroundColor = 'aqua';
+        sessionRunning = true;
+        startButton.style.display = 'none';
+        subjectNumberInput.style.display = 'none';
+        performanceBarContainer.style.display = 'block';
+        performanceBar.style.width = '50%'; 
+        performanceBar.style.backgroundColor = 'green'; 
+        document.getElementById('performance-label').innerText = `50%`; 
+        buttonsDiv.style.display = 'flex';
+
+        // Generate buttons
+        for (let i = 0; i < 10; i++) {
+            const button = document.createElement('button');
+            button.classList.add('btn');
+            button.innerText = i;
+            button.onclick = () => answer(i);
+            buttonsDiv.appendChild(button);
+        }
+
+        preloadSounds(['correct-sound.mp3', 'incorrect-sound.mp3'], nextQuestion);
+
+        // End session after 60 seconds
+        sessionTimeout = setTimeout(endSession, 60000);
+    }
+
+    function preloadSounds(soundFiles, callback) {
+        let loadedCount = 0;
+        soundFiles.forEach((soundFile) => {
+            const audio = new Audio(soundFile);
+            audio.addEventListener('loadeddata', () => {
+                loadedCount++;
+                if (loadedCount === soundFiles.length) {
+                    callback();
+                }
+            });
+            audio.load();
+        });
+    }
+
+    function nextQuestion() {
+        clearTimeout(questionTimeout);
+
+ timerBar.style.backgroundColor = 'aqua'; // Set the color to aqua
+
+        currentQuestion = questions[Math.floor(Math.random() * questions.length)];
+        questionDiv.innerText = currentQuestion;
+        questionStart = Date.now();
+
+        if (consecutiveCorrect >= 3) {
+            questionTime *= 0.9;
+            consecutiveCorrect = 0;
+        } else if (consecutiveIncorrect >= 3) {
+            questionTime *= 1.1;
+            consecutiveIncorrect = 0;
+        }
+
+        questionTimeout = setTimeout(() => answer(null), questionTime);
+
+        updateTimerBar(questionTime);
+    }
+
+    function answer(answer) {
+    clearTimeout(questionTimeout);  
+        clickSound.play();
+
+        const correctAnswer = eval(currentQuestion);
+        const correct = answer === correctAnswer;
+
+        if (correct) {
+            correctCount++;
+            consecutiveCorrect++;
+            consecutiveIncorrect = 0;
+            questionDiv.innerText = 'Correct!';
+            playSound('correct-sound.mp3');
+        } else {
+            consecutiveCorrect = 0;
+            consecutiveIncorrect++;
+            questionDiv.innerText = 'Incorrect!';
+            playSound('incorrect-sound.mp3');
+        }
+
+        const row = resultsTable.insertRow();
+        row.insertCell(0).innerText = questionCount;
+        row.insertCell(1).innerText = currentQuestion;
+        row.insertCell(2).innerText = correctAnswer;
+        row.insertCell(3).innerText = answer !== null ? answer : 'Timeout';
+        row.insertCell(4).innerText = correct ? 'Correct' : 'Incorrect';
+        row.insertCell(5).innerText = Date.now() - questionStart;
+        row.insertCell(6).innerText = (questionTime/1000).toFixed(2);
+
+        questionCount++;
+
+        updatePerformanceBar();
+
+        // wait .5 seconds (or whatever you choose - enter value in milliseconds below) before showing next question
+	if (sessionRunning) {
+        setTimeout(nextQuestion, 500);
+    }
+}
+
+    function playSound(soundFile) {
+        const audio = new Audio(soundFile);
+        audio.play();
+    }
+
+    function endSession() {
+        timerLabel.style.visibility = 'hidden';
+        sessionRunning = false;
+        clearTimeout(questionTimeout);
+        questionDiv.style.display = 'none';
+        buttonsDiv.style.display = 'none';
+        performanceBarContainer.style.display = 'none';
+        timerBarContainer.style.display = 'none';
+
+        document.querySelector('#results').style.display = 'block';
+
+        let csvContent = "data:text/csv;charset=utf-8,";
+        csvContent += "Question Number,Question,Correct Answer,The Number Button Clicked,Result,Response Time (ms), Allowed Time (secs)\r\n";
+        const rows = document.querySelectorAll("#results tbody tr");
+        rows.forEach(row => {
+            const cells = row.querySelectorAll("td");
+            let rowData = "";
+            cells.forEach((cell, index) => {
+                let cellValue = cell.innerText;
+                if (index === 1) {
+                    cellValue = '="' + cellValue + '"';
+                }
+                rowData += cellValue + ",";
+            });
+            rowData = rowData.slice(0, -1);
+            csvContent += rowData + "\r\n";
+        });
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "MIST_Task_Results_" + subjectNumberInput.value + ".csv");
+        document.body.appendChild(link); // Required for Firefox
+        link.click();
+    }
+
+    function updatePerformanceBar() {
+        const percentage = correctCount / questionCount * 100;
+        performanceBar.style.width = `${percentage}%`;
+        performanceBar.style.backgroundColor = percentage >= 50 ? 'green' : 'red';
+        
+if (percentage <= 0) {
+    document.getElementById('performance-label').innerText = "YOU MUST RESPOND MORE ACCURATELY OR FASTER TO INCREASE PERFORMANCE!";
+} else {
+    document.getElementById('performance-label').innerText = `${percentage.toFixed(0)}%`;
+}
+
+if (percentage >= 80) {
+    document.getElementById('performance-title').innerText = "You are doing well - keep it up!";
+    document.getElementById('performance-title').style.color = "green"; // change the text color to green
+} else if (percentage < 50) {
+    document.getElementById('performance-title').innerText = "Your performance is below 50% - Please Try Harder!";
+    document.getElementById('performance-title').style.color = "red"; // change the text color to red
+} else {
+    document.getElementById('performance-title').innerText = "Your Performance";
+    document.getElementById('performance-title').style.color = "black"; // change the text color to black
+}
+
+}
+
+function updateTimerLabel() {
+    let currentTime = Date.now();
+    let elapsedTime = currentTime - questionStart;  // milliseconds
+    let remainingTime = (questionTime - elapsedTime) / 1000; // Convert to seconds
+    timerLabel.innerText = `Time remaining: ${Math.round(remainingTime)} s`;
+}
+
+
+
+function updateTimerBar(questionTime) {
+    timerBar.style.transition = 'none';
+    timerBar.style.backgroundColor = 'aqua';
+    timerBar.style.width = '100%';
+
+    setTimeout(() => {
+        timerBar.style.transition = `${questionTime}ms linear`;
+        timerBar.style.width = '0';
+    }, 100);
+
+    setInterval(updateTimerLabel, 100); // Call this function every 100 ms
+
+    setTimeout(() => {
+        timerBar.style.backgroundColor = 'black';
+    }, questionTime / 2);
+
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            timerBar.style.transition = `width ${questionTime}ms linear, background-color ${questionTime}ms linear`;
+            timerBar.style.width = '0';
+            timerBar.style.backgroundColor = 'black';
+        });
+    });
+}
+
+    startButton.addEventListener('click', start);
+</script>
+</body>
+</html>

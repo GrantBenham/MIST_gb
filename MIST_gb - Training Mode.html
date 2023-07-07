@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SSH Lab - Training Session</title>
+  <link rel="icon" type="image/x-icon" href="ssh.ico">
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            background-color: white;
+        }
+
+        #header {
+            font-size: 20px;
+            text-align: center;
+        }
+
+        #header2 {
+            font-size: 40px;
+            text-align: center;
+        }
+
+
+        #question {
+            font-size: 80px;
+            font-weight: bold;
+            margin-bottom: 50px;
+        }
+
+        #start {
+            font-size: 3em; 
+            padding: 1em;   
+            cursor: pointer;
+	    }
+
+        #buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            width: 60px;
+            height: 60px;
+            margin: 5px;
+            border-radius: 65%;
+            background-color: blue;
+            color: white;
+            font-size: 50px;
+            line-height: 50px;
+            display: inline-block;
+            transition: background-color .25s;
+        }
+
+        .btn:active {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="header">Stress, Sleep, and Health Lab<br /></h1>
+    <h2 id="header2">Training Session<br /><br /><br /></h2>
+
+    <div id="question"></div>
+    <div id="buttons"></div>
+    <button id="start" onclick="start()">Start</button>
+    <audio id="click-sound" src="click.mp3"></audio>
+
+    <script>
+        const questions = [
+
+// Math questions generated through ChatGPT4.0
+
+  "5 + 4", "2 + 3", "6 - 1", "3 + 5", "7 - 6", "1 + 4", "4 + 5", "5 + 1", "2 + 6", "6 - 2", "3 + 1", "7 - 5", "1 + 7", "4 + 2", "5 + 3", "2 + 1", "6 - 4", "3 + 4", "7 - 2", "1 + 8", "4 + 3", "5 + 2", "2 + 5", "6 - 3", "3 + 2", "7 - 1", "1 + 3", "4 + 1", "5 + 5", "2 + 4", "6 - 5", "3 + 6", "1 + 5", "4 + 0", "5 + 0", "2 + 2", "4 - 2", "3 + 7", "1 + 2", "4 - 1", "5 - 1", "3 - 2", "2 - 1", "5 - 4", "3 - 1", "5 - 3", "2 - 2", "1 + 6", "5 - 5", "3 - 3", "1 + 0", "3 + 0", "2 + 0", "1 + 9", "5 - 5", "3 - 0", "2 - 0", "4 - 4", "8 - 4", "3 + 3", "7 - 3", "4 - 3", "8 - 5", "3 + 4", "7 - 4", "4 - 0", "8 - 6", "3 + 0", "7 - 0", "6 - 6", "8 - 7", "3 + 6", "7 - 1", "6 - 1", "8 - 8", "3 + 5", "7 - 2", "6 - 2", "9 - 9", "3 + 2", "7 - 3", "6 - 3", "9 - 1", "3 + 1", "7 - 4", "6 - 4", "9 - 2", "3 + 7", "7 - 5", "6 - 5", "9 - 3", "7 - 6", "9 - 4", "7 - 7", "9 - 5", "9 - 6", "9 - 7", "9 - 8", "1 + 7", "3 + 6", "6 - 3", "2 + 5", "4 + 4", "8 - 4", "1 + 8", "3 + 5", "6 - 2", "2 + 6", "4 + 3", "8 - 3", "1 + 9", "3 + 4", "6 - 1", "2 + 7", "4 + 2", "8 - 2", "1 + 0", "3 + 3", "2 + 8", "4 + 1", "8 - 1", "1 + 1", "3 + 2", "2 + 9", "4 + 0", "8 - 0", "1 + 2", "3 + 1", "2 + 0", "5 - 4", "9 - 8", "1 + 3", "3 + 0", "5 - 3", "9 - 7", "1 + 4", "5 - 2", "9 - 6", "1 + 5", "5 - 1", "9 - 5", "1 + 6", "5 - 0", "9 - 4", "1 + 0", "6 - 5", "9 - 3", "3 - 2", "6 - 4", "9 - 2", "3 - 1", "6 - 3", "9 - 1", "3 - 0", "6 - 2", "3 + 7", "6 - 1", "7 - 6", "3 + 8", "6 - 0", "7 - 5", "3 + 9", "7 - 4", "4 - 3", "7 - 3", "4 - 2", "7 - 2", "4 - 1", "7 - 1", "4 - 0", "7 - 0", "5 + 4", "8 - 7", "5 + 3", "8 - 6", "5 + 2", "8 - 5", "5 + 1", "8 - 4", "5 + 0", "8 - 3", "6 + 3", "8 - 2", "6 + 2", "8 - 1", "6 + 1", "8 - 0", "6 + 0", "9 - 9", "7 + 2", "9 - 0", "7 + 1", "7 + 0",
+
+
+"1 + 2 - 1", "3 + 4 - 5", "7 + 2 - 6", "5 + 2 - 3", "6 + 3 - 7", "8 + 1 - 4", "3 + 2 - 4", "6 + 1 - 2", "2 + 7 - 5", "4 + 5 - 3", "7 + 1 - 5", "2 + 5 - 3", "4 + 3 - 5", "9 + 1 - 7", "5 + 2 - 1", "6 + 1 - 4", "2 + 3 - 1", "4 + 1 - 3", "3 + 6 - 4", "6 + 2 - 5", "9 + 1 - 8", "5 + 3 - 2", "8 + 1 - 7", "2 + 6 - 3", "4 + 1 - 2", "7 + 2 - 8", "1 + 5 - 2", "5 + 2 - 4", "8 + 1 - 6", "2 + 1 - 1", "4 + 3 - 2", "7 + 1 - 4", "1 + 2 - 2", "5 + 3 - 6", "8 + 1 - 5", "3 + 2 - 1", "6 + 1 - 3", "2 + 4 - 1", "4 + 3 - 4", "7 + 2 - 5", "1 + 6 - 3", "5 + 1 - 3", "8 + 1 - 2", "2 + 2 - 1", "6 + 3 - 6", "9 + 1 - 6", "4 + 1 - 1", "7 + 2 - 4", "1 + 3 - 2", "5 + 4 - 6", "8 + 1 - 3", "3 + 1 - 2", "6 + 2 - 4", "2 + 5 - 1", "4 + 2 - 3", "7 + 1 - 3", "1 + 4 - 2", "5 + 1 - 2", "8 + 1 - 1", "2 + 3 - 2", "6 + 4 - 7", "9 + 1 - 5", "4 + 2 - 2", "7 + 3 - 5", "1 + 5 - 3", "5 + 2 - 2", "3 + 3 - 1", "6 + 1 - 1", "2 + 4 - 2", "4 + 5 - 6", "7 + 4 - 6", "1 + 6 - 4", "5 + 3 - 3", "8 + 2 - 6", "3 + 4 - 3", "6 + 2 - 3", "2 + 5 - 3", "4 + 6 - 7", "7 + 5 - 7", "1 + 7 - 5", "5 + 4 - 4", "8 + 3 - 7", "3 + 5 - 4", "6 + 3 - 5", "2 + 6 - 4", "4 + 7 - 8", "7 + 6 - 8", "1 + 8 - 6", "5 + 5 - 5", "8 + 4 - 8", "3 + 6 - 5", "6 + 4 - 6", "2 + 7 - 5", "4 + 8 - 9", "7 + 7 - 9", "1 + 9 - 7", "5 + 6 - 6", "8 + 5 - 9", "3 + 7 - 6", "6 + 5 - 7", "2 + 8 - 6", "4 + 9 - 8", "7 + 8 - 9", "5 + 4 - 3", "2 + 3 - 1", "6 + 4 - 5", "9 + 1 - 6", "3 + 5 - 4", "7 + 2 - 3", "1 + 6 - 2", "4 + 5 - 3", "8 + 1 - 2", "5 + 5 - 6", "2 + 4 - 1", "6 + 5 - 6", "9 + 2 - 7", "3 + 6 - 5", "7 + 3 - 4", "1 + 7 - 3", "4 + 6 - 4", "8 + 2 - 3", "5 + 6 - 7", "2 + 5 - 2", "6 + 6 - 7", "9 + 3 - 8", "3 + 7 - 6", "7 + 4 - 5", "1 + 8 - 4", "4 + 7 - 5", "8 + 3 - 4", "5 + 7 - 8", "2 + 6 - 3", "6 + 7 - 8", "9 + 4 - 9", "3 + 8 - 7", "7 + 5 - 6", "1 + 9 - 5", "4 + 8 - 6", "8 + 4 - 5", "5 + 8 - 9", "2 + 7 - 4", "6 + 8 - 9", "3 + 9 - 8", "7 + 6 - 7", "4 + 9 - 7", "8 + 5 - 6", "5 + 9 - 8", "6 + 9 - 9", "2 + 3 - 2", "6 + 4 - 6", "9 + 1 - 7", "3 + 5 - 5", "7 + 2 - 4", "1 + 6 - 3", "4 + 5 - 4", "8 + 1 - 3", "5 + 5 - 7", "2 + 4 - 2", "6 + 5 - 7", "9 + 2 - 8", "3 + 6 - 6", "7 + 3 - 5", "1 + 7 - 4", "4 + 6 - 5", "8 + 2 - 4", "5 + 6 - 8", "2 + 5 - 3", "6 + 6 - 8", "9 + 3 - 9", "3 + 7 - 7", "7 + 4 - 6", "1 + 8 - 5", "4 + 7 - 6", "8 + 3 - 5", "5 + 7 - 9", "2 + 6 - 4", "6 + 7 - 9", "3 + 8 - 8", "7 + 5 - 7", "4 + 8 - 7", "8 + 4 - 6", "5 + 8 - 8", "6 + 8 - 8", "2 + 3 - 1", "6 + 4 - 5", "9 + 1 - 6", "3 + 5 - 4", "7 + 2 - 3", "1 + 6 - 2", "4 + 5 - 3", "8 + 1 - 2", "5 + 5 - 6", "2 + 4 - 1", "6 + 5 - 6", "9 + 2 - 7", "3 + 6 - 5", "7 + 3 - 4", "1 + 7 - 3", "4 + 6 - 4", "8 + 2 - 3", "5 + 6 - 7", "2 + 5 - 2", "6 + 6 - 7", "9 + 3 - 8", "3 + 7 - 6", "7 + 4 - 5", "1 + 8 - 4", "4 + 7 - 5", "8 + 3 - 4", "5 + 7 - 8", "2 + 6 - 3", "6 + 7 - 8", "9 + 4 - 9", "3 + 8 - 7", "7 + 5 - 6", "1 + 9 - 5", "4 + 8 - 6", "8 + 4 - 5", "5 + 8 - 9", "2 + 7 - 4", "6 + 8 - 9", "3 + 9 - 8", "7 + 6 - 7", "4 + 9 - 7", "8 + 5 - 6", "5 + 9 - 8", "6 + 9 - 9", "2 + 3 - 2", "6 + 4 - 6", "9 + 1 - 7", "3 + 5 - 5", "7 + 2 - 4", "1 + 6 - 3", "4 + 5 - 4", "8 + 1 - 3", "5 + 5 - 7", "2 + 4 - 2", "6 + 5 - 7", "9 + 2 - 8", "3 + 6 - 6", "7 + 3 - 5", "1 + 7 - 4", "4 + 6 - 5", "8 + 2 - 4", "5 + 6 - 8", "2 + 5 - 3", "6 + 6 - 8", "9 + 3 - 9", "3 + 7 - 7", "7 + 4 - 6", "1 + 8 - 5", "4 + 7 - 6", "8 + 3 - 5", "5 + 7 - 9", "2 + 6 - 4", "6 + 7 - 9", "3 + 8 - 8", "7 + 5 - 7", "4 + 8 - 7", "8 + 4 - 6", "5 + 8 - 8", "6 + 8 - 8"
+
+
+];
+      const questionDiv = document.querySelector('#question');
+const startButton = document.querySelector('#start');
+const buttonsDiv = document.querySelector('#buttons');
+const clickSound = document.querySelector('#click-sound');
+
+let questionCount = 0;
+let correctCount = 0;
+let currentQuestion;
+let sessionTimeout;
+
+function start() {
+  startButton.style.display = 'none';
+  buttonsDiv.style.display = 'flex';
+
+  for (let i = 0; i < 10; i++) {
+    const button = document.createElement('button');
+    button.classList.add('btn');
+    button.innerText = i;
+    button.onclick = () => answer(i);
+    buttonsDiv.appendChild(button);
+  }
+
+  preloadSounds(['correct-sound.mp3', 'incorrect-sound.mp3'], nextQuestion);
+  // End session after 60 seconds
+  sessionTimeout = setTimeout(endSession, 60000);
+}
+
+function preloadSounds(soundFiles, callback) {
+  let loadedCount = 0;
+  soundFiles.forEach((soundFile) => {
+    const audio = new Audio(soundFile);
+    audio.addEventListener('loadeddata', () => {
+      loadedCount++;
+      if (loadedCount === soundFiles.length) {
+        callback();
+      }
+    });
+    audio.load();
+  });
+}
+
+function nextQuestion() {
+  currentQuestion = questions[Math.floor(Math.random() * questions.length)];
+  questionDiv.innerText = currentQuestion;
+}
+
+function answer(answer) {
+  clickSound.play();
+  const correctAnswer = eval(currentQuestion);
+  const correct = answer === correctAnswer;
+
+  if (correct) {
+    correctCount++;
+    questionDiv.innerText = 'Correct!';
+    playSound('correct-sound.mp3');
+  } else {
+    questionDiv.innerText = 'Incorrect!';
+    playSound('incorrect-sound.mp3');
+  }
+
+  questionCount++;
+
+  // wait 1 second before showing next question
+  setTimeout(nextQuestion, 1000);
+}
+
+function playSound(soundFile) {
+  const audio = new Audio(soundFile);
+  audio.play();
+}
+
+function endSession() {
+  clearTimeout(sessionTimeout);
+  questionDiv.innerText = 'END OF TRAINING SESSION!';
+  buttonsDiv.style.display = 'none';
+}
+    </script>
+</body>
+</html>
