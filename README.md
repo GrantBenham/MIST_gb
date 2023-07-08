@@ -2,6 +2,8 @@
 
 The MIST_gb program is two HTML/Javascript programs (one for Training, the other for the Task) used to induce acute psychological stress for research studies.
 
+![image](https://github.com/GrantBenham/MIST_gb/assets/138258565/ada8d230-49d8-4768-b405-348f36f3cdab)
+
 ## Description
 
 The program is modeled off a protocol developed by Katarina Dedovic et al. (2005), the Montreal Imaging Stress Task (MIST), which was itself derived from the Trier Mental Challenge Test.
@@ -57,4 +59,5 @@ grant.benham@utrgv.edu
 This project is licensed under the MIT License - see the LICENSE.md file for details
 
 ## Acknowledgments
+
 
