@@ -359,6 +359,7 @@ timerBarContainer.style.display = 'block';
 
     function endSession() {
         timerLabel.style.visibility = 'hidden';
+        performanceTitle.style.visibility = 'hidden';
         sessionRunning = false;
         clearTimeout(questionTimeout);
         questionDiv.style.display = 'none';
@@ -398,21 +399,27 @@ timerBarContainer.style.display = 'block';
         performanceBar.style.backgroundColor = percentage >= 50 ? 'green' : 'red';
         
 if (percentage <= 0) {
-    document.getElementById('performance-label').innerText = "YOU MUST RESPOND MORE ACCURATELY OR FASTER TO INCREASE PERFORMANCE!";
+    document.getElementById('performance-label').innerText = "0%";
 } else {
     document.getElementById('performance-label').innerText = `${percentage.toFixed(0)}%`;
 }
 
+
 if (percentage >= 80) {
     document.getElementById('performance-title').innerText = "You are doing well - keep it up!";
     document.getElementById('performance-title').style.color = "green"; // change the text color to green
-} else if (percentage < 50) {
-    document.getElementById('performance-title').innerText = "Your performance is below 50% - Please Try Harder!";
+} else if (percentage < 50 && percentage >= 25) {
+    document.getElementById('performance-title').innerText = "Your performance is below 50%";
+    document.getElementById('performance-title').style.color = "orange"; // change the text color to orange
+} else if (percentage < 25) {
+    document.getElementById('performance-title').innerText = "Your performance is critically low!";
     document.getElementById('performance-title').style.color = "red"; // change the text color to red
 } else {
     document.getElementById('performance-title').innerText = "Your Performance";
     document.getElementById('performance-title').style.color = "black"; // change the text color to black
 }
+
+
 
 }
 
