@@ -5,7 +5,8 @@ The MIST_gb program is two HTML/Javascript programs (one for Training, the other
 ## Description
 
 The program is modeled off a protocol developed by Katarina Dedovic et al. (2005), the Montreal Imaging Stress Task (MIST), which was itself derived from the Trier Mental Challenge Test.
-The MIST_gb Task consists of a series of mental arithmetic questions 
+The MIST_gb Task consists of a series of mental arithmetic questions where the answer is always a single integer between 0 and 9. 
+Participants indicate their answer to each question by clicking one of the available buttons (0 to 9).
 
 In the Task program, the difficulty of the task is manipulated to create mental stress by adjusting the time available to answer each question. 
 The task starts with a time limit per question of 5 seconds which is displayed to participants through a timer bar.
@@ -16,52 +17,40 @@ After a specified amount of time, which can be easily adjusted in the program co
 These results are also automtically exported in a CSV file for easy import to Excel. File names include the participant number entered at the start of the session.
 
 In the Training program, the participant is presented with math questions but no performance or timer bar is presented and there is no time limit per question.
-
-a series of mental arithmetic tasks are displayed on the computer screen, and subjects submit their answers by means of a response interface. 
-
-
+The low-stress Training program should be presented to participants first, to familiarize them with the subsequent high-stress Task.
 
 ## Getting Started
 
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+The program runs in a browser window. Microsoft Edge is recommended.
 
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+All files should be stored in the same folder. 
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
+The separate programs can be run by opening the Training or Task html files.
 
 ## Help
 
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
+CSV files generated when the Task session ends will automatically be downloaded to the same location as the Task program.
 
 ## Authors
 
-Contributors names and contact info
+Dr. Grant Benham
+https://orcid.org/0000-0002-5664-6025
+https://scholar.google.com/citations?hl=en&user=OT4muuUAAAAJ
+https://stresslab.weebly.com
+grant.benham@utrgv.edu
 
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
+
 
 ## Version History
 
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
+* 1.0
+    
 
 ## License
 
